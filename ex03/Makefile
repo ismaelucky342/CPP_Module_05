@@ -1,29 +1,51 @@
-NAME		= scavtrap
-CXX			= c++
-CXXFLAGS	= -std=c++98 -Wall -Wextra -Werror
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/23 04:06:52 by ismherna          #+#    #+#              #
+#    Updated: 2024/12/07 12:58:09 by ismherna         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS		= main.cpp ClapTrap.cpp ScavTrap.cpp
-OBJS		= $(SRCS:.cpp=.o)
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98
+TARGET = ex03
+SRCS =	main.cpp \
+		src/Bureaucrat.cpp \
+		src/Form.cpp \
+		src/PresidentialPardonForm.cpp \
+		src/RobotomyRequestForm.cpp \
+		src/ShrubberyCreationForm.cpp \
+		src/StrToLower.cpp \
+		src/IntToStr.cpp \
+		src/Intern.cpp
 
-all: $(NAME)
-	
+OBJS = $(SRCS:.cpp=.o)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo "		
-	@echo " ██████╗██████╗ ██████╗    ███╗   ███╗ ██████╗ ██████╗ ██╗   ██╗██╗     ███████╗         ██████╗ ███████╗					"
-	@echo "██╔════╝██╔══██╗██╔══██╗   ████╗ ████║██╔═══██╗██╔══██╗██║   ██║██║     ██╔════╝        ██╔═████╗██╔════╝					"
-	@echo "██║     ██████╔╝██████╔╝   ██╔████╔██║██║   ██║██║  ██║██║   ██║██║     █████╗          ██║██╔██║███████╗					"
-	@echo "██║     ██╔═══╝ ██╔═══╝    ██║╚██╔╝██║██║   ██║██║  ██║██║   ██║██║     ██╔══╝          ████╔╝██║╚════██║					"
-	@echo "╚██████╗██║     ██║███████╗██║ ╚═╝ ██║╚██████╔╝██████╔╝╚██████╔╝███████╗███████╗███████╗╚██████╔╝███████║					"
-	@echo " ╚═════╝╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝                   "																		"
-	@echo "																													"
-	@echo "			14/09/2024 - ismherna@student.42.fr - 42 Madrid - Ismael Hernández	 "
+# Regla por defecto
+all: $(TARGET)
 
+# Compilar el ejecutable
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# Regla para compilar los archivos .o
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Limpiar los archivos generados
 clean:
 	rm -f $(OBJS)
 
+# Limpiar todo, incluyendo el ejecutable
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(TARGET)
 
-re: fclean $(NAME)
+# Recompilar
+re: fclean all
+
+.PHONY: all clean fclean re
+
