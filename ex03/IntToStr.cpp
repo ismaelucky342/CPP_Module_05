@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/IntToStr.hpp"
+#include "IntToStr.hpp"
 
 std::string intToStr(int val)
 {

@@ -34,10 +34,10 @@ class Bureaucrat;
  */
 class Form {
 	private:
-		bool		_is_signed;
-		std::string	_name;
-		const int	_sign_grade;
-		const int	_exec_grade;
+		bool			_is_signed;
+		const std::string	_name;
+		const int		_sign_grade;
+		const int		_exec_grade;
 	public:
 		Form();
 		Form(const std::string, int sign_grade, int exec_grade);
@@ -49,8 +49,6 @@ class Form {
 		std::string getName(void) const;
 		int getSignGrade(void) const;
 		int getExecGrade(void) const;
-		//Setters
-		void setName(std::string);
 		//Methods
 		int verifyGrade(int grade, int max, int min) const;
 		virtual void execute(Bureaucrat const &) const = 0;
@@ -60,6 +58,9 @@ class Form {
 		virtual const char *what() const throw();
 	};
 	struct GradeTooHighException : public std::exception {
+		virtual const char *what() const throw();
+	};
+	struct FormNotSignedException : public std::exception {
 		virtual const char *what() const throw();
 	};
 };

@@ -1,5 +1,5 @@
-#include "../includes/Intern.hpp"
-#include "../includes/StrToLower.hpp"
+#include "Intern.hpp"
+#include "StrToLower.hpp"
 
 static const std::string _forms[3] = {"PresidentialPardonForm", "RobotomyRequestForm" ,"ShrubberyCreationForm"};
 
@@ -40,7 +40,7 @@ Intern &Intern::operator=(const Intern &src) {
 Form *Intern::makeForm(std::string name, std::string trg) {
 	int i = 0;
 
-	while (i <= 3)
+	while (i < 3)
 	{
 		if (_forms[i] == name)
 		{
@@ -48,9 +48,10 @@ Form *Intern::makeForm(std::string name, std::string trg) {
 		}
 		i++;
 	}
-	if (i <= 3 && this->_k[i]) {
-		std::cout << "Intern creates "<< name << "Form" << std::endl;
+	if (i < 3) {
+		std::cout << "Intern creates " << name << std::endl;
 		return (this->*_k[i])(trg);
 	}
+	std::cout << "Intern could not find a form named \"" << name << "\"" << std::endl;
 	return (NULL);
 }

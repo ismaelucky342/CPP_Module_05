@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/PresidentialPardonForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 
 PresidentialPardonForm::PresidentialPardonForm(): Form("Presidential Pardon Form", 25, 5) , _target(""){
@@ -26,7 +26,7 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target): Form("Presid
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &src) :
-Form(src.getName() + "_copy", src.getSignGrade(), src.getExecGrade()),
+Form(src.getName(), src.getSignGrade(), src.getExecGrade()),
 _target(src.getTarget())
 {
 	std::cout << "[Copy] Presidential Pardon Form"<< std::endl;
@@ -36,14 +36,15 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 	std::cout << "[Assignment] PresidentialPardonForm called to assignment " << src.getName() << std::endl;
 	if (this == &src)
 		return (*this);
+	this->_target = src.getTarget();
 	return (*this);
 }
 
 void PresidentialPardonForm::execute(Bureaucrat const & src) const {
+	if (!this->getIsSigned())
+		throw Form::FormNotSignedException();
 	this->verifyGrade(src.getGrade(), this->getExecGrade(), 1);
-	this->verifyGrade(src.getGrade(), this->getSignGrade(), 1);
-	std::cout << src.getName() << " executed " << "Presidential Pardon Form"<< std::endl;
-	std::cout << this->getTarget() << ", has been perdoned by Zaphod Beeblebrox" << std::endl;
+	std::cout << this->getTarget() << ", has been pardoned by Zaphod Beeblebrox" << std::endl;
 }
 
 std::string PresidentialPardonForm::getTarget(void)const {

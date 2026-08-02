@@ -84,30 +84,15 @@ nombre pedido.
 - Las excepciones deben heredar de `std::exception` para poder capturarse
   como `catch (std::exception &e)`.
 
-## Estado actual del proyecto
+## Estado actual del proyecto (revisión rápida)
 
-Todos los ejercicios (ex00-ex03) compilan limpio con
-`c++ -std=c++98 -Wall -Wextra -Werror`, sin warnings, y se han probado en
-ejecución (incluyendo comprobación con AddressSanitizer/UBSan para descartar
-fugas de memoria y lecturas fuera de límites).
-
-Se corrigieron, entre otros:
-- Los Makefiles de ex01 y ex02, que referenciaban archivos de otro módulo
-  (`ClapTrap.cpp`, `ScavTrap.cpp`) en vez de los reales.
-- Nombres de archivo inconsistentes en ex02 (`A_Form` → `AForm`,
-  `ShubberyCreationForm` → `ShrubberyCreationForm`) que rompían la
-  compilación.
-- Rutas de `#include` de ex03 (`../includes/`, `inc/`) que no existían en la
-  estructura real del repo, aplanadas a la carpeta única del ejercicio.
-- El constructor de copia de `Bureaucrat`, que no copiaba el nombre.
-- Grados de firma/ejecución mal copiados en `RobotomyRequestForm` y
-  `ShrubberyCreationForm` (ex03).
-- Una lectura fuera de los límites de un array en `Intern::makeForm`.
-- Comprobación de firma ausente en `execute()` de los formularios concretos
-  de ex03.
-- El árbol ASCII de `ShrubberyCreationForm`, que escribía bytes 0-127 en
-  crudo en vez de dibujar un árbol.
-- Mensajes de éxito/error de `signForm`/`executeForm` que no se imprimían o
-  se imprimían en el orden equivocado.
-
-El proyecto queda listo para subir a evaluación.
+En una revisión del repo tal como está subido, **ex01, ex02 y ex03 no
+compilan** (Makefiles con archivos de otro módulo pegados por error, o rutas
+de `include` que no coinciden con la estructura de carpetas real), y hay
+varios bugs de lógica en ex02/ex03 (grados de firma/ejecución mal copiados,
+lectura fuera de los límites de un array en `Intern::makeForm`, mensajes de
+éxito que se imprimen antes de comprobar si la operación falló). El detalle
+completo de cada fallo, archivo por archivo, está en la conversación donde se
+pidió esta revisión — conviene corregirlos antes de subir el proyecto a
+evaluación, porque un Makefile que no compila pone la nota del ejercicio a 0
+directamente.

@@ -1,7 +1,7 @@
 
-#include "inc/Bureaucrat.hpp"
-#include "inc/Intern.hpp"
-#include "inc/Form.hpp"
+#include "Bureaucrat.hpp"
+#include "Intern.hpp"
+#include "Form.hpp"
 #include <exception>
 
 //NEEDED TEST!
@@ -28,7 +28,7 @@ int main()
 			b->beSigned(*a);
 			// b->execute(*a);
 		}
-		catch(Bureaucrat::GradeTooLowException &e)
+		catch(std::exception &e)
 		{
 			std::cerr << "\033[33m" << a->getName() << " was not able to sign " << b->getName() << ": " << e.what() << "\033[0m" << std::endl;
 		}

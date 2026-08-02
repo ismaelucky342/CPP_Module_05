@@ -1,13 +1,5 @@
 
-#include "../includes/Form.hpp"
-//Utils
-void handleSignError(const Bureaucrat &bure, const Form &form, const std::string &errorType, const std::string &expected) {
-	std::cout << bure.getName() 
-				<< " couldn’t sign " << form.getName() 
-				<< " because Error: Grade is " << errorType 
-				<< " " << form.getSignGrade() 
-				<< ", expected "<< expected << std::endl;
-}
+#include "Form.hpp"
 
 int Form::verifyGrade(int grade, int max, int min) const{
 	if (grade > max)
@@ -41,7 +33,7 @@ Form::Form(const Form& form) :
  _name(form.getName()),
  _sign_grade(this->verifyGrade(form.getSignGrade(), 150, 1)),
  _exec_grade(this->verifyGrade(form.getExecGrade(), 150, 1)) {
-	std::cout << "[Copy Constructor] Bureaucrat called to copy " << form.getName() <<
+	std::cout << "[Copy Constructor] Form called to copy " << form.getName() <<
 	" into " << this->getName() << std::endl;
 }
 
@@ -65,34 +57,11 @@ int Form::getExecGrade(void) const {
 	return (this->_exec_grade);
 }
 
-//Setters
 void Form::beSigned(Bureaucrat & bure) {
-
-	try {
-		this->verifyGrade(bure.getGrade(), 150, 1);
-	}
-	catch (std::exception &e)
-	{
-		handleSignError(
-			bure,
-			*this,
-			dynamic_cast<Form::GradeTooHighException*>(&e) ? "High" : "Low",
-			"0 to 150");
-	}
-	if (this->getSignGrade() >= bure.getGrade())
-		this->_is_signed = true;
-	else 
-		handleSignError(
-		bure,
-		*this,
-		intToStr(bure.getGrade()),
-		"'< or =' to ");
+	if (bure.getGrade() > this->_sign_grade)
+		throw Form::GradeTooLowException();
+	this->_is_signed = true;
 }
-
-void Form::setName(std::string name) {
-	this->_name = name;
-}
-
 
 //Exceptions
 const char *Form::GradeTooLowException::what(void) const throw() {
@@ -103,11 +72,16 @@ const char *Form::GradeTooHighException::what(void) const throw() {
 	return ("Grade too hight");
 };
 
+const char *Form::FormNotSignedException::what(void) const throw() {
+	return ("Form is not signed");
+};
+
 //Operators
 Form& Form::operator=(const Form& src) {
 	std::cout << "[Assignment] Form called to assignment " << src.getName() << std::endl;
 	if (this == &src)
 		return (*this);
+	this->_is_signed = src.getIsSigned();
 	return (*this);
 }
 

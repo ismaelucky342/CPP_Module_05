@@ -10,21 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ShrubberyCreationForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
-int writeTruncFile(ShrubberyCreationForm src)
+int writeTruncFile(ShrubberyCreationForm const & src)
 {
-	std::string ascii;
 	std::string filename = src.getTarget() + "_shrubbery";
 	std::ofstream outFile(filename.c_str(), std::ios::trunc);
 	if (!outFile) {
 		std::cout << "Error to open file: "<< filename << std::endl;
 		return 1;
 	}
-	for (int i = 0; i <= 127; i++)
-	{
-		outFile << static_cast<char>(i) << "\n";
-	}
+	outFile << "     &\n";
+	outFile << "    &&&\n";
+	outFile << "   &&&&&\n";
+	outFile << "  &&&&&&&\n";
+	outFile << " &&&&&&&&&\n";
+	outFile << "&&&&&&&&&&&\n";
+	outFile << "     |||\n";
+	outFile << "     |||\n";
 	outFile.close();
 	return 0;
 }
@@ -37,12 +40,12 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 	std::cout << "[Destroyed] Shrubbery Creation Form"<< std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): Form("Shrubbery Creation Form", 25, 5), _target(target){
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): Form("Shrubbery Creation Form", 145, 137), _target(target){
 	std::cout << "[BUilder] Shrubbery Creation Form with target "<< this->_target << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) :
-Form(src.getName() + "_copy", src.getSignGrade(), src.getExecGrade()),
+Form(src.getName(), src.getSignGrade(), src.getExecGrade()),
 _target(src.getTarget())
 {
 	std::cout << "[Copy] Shrubbery Creation Form"<< std::endl;
@@ -52,13 +55,14 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	std::cout << "[Assignment] Shrubbery Creation Form called to assignment " << src.getName() << std::endl;
 	if (this == &src)
 		return (*this);
+	this->_target = src.getTarget();
 	return (*this);
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const & src) const {
+	if (!this->getIsSigned())
+		throw Form::FormNotSignedException();
 	this->verifyGrade(src.getGrade(), this->getExecGrade(), 1);
-	this->verifyGrade(src.getGrade(), this->getSignGrade(), 1);
-	std::cout << src.getName() << " executed " << "Shrubbery Creation Form"<< std::endl;
 	writeTruncFile(*this);
 	std::cout << " File " << this->getTarget() << "_shrubbery created"<< std::endl;
 }

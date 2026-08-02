@@ -20,10 +20,8 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name), _grade(
 		throw Bureaucrat::GradeTooLowException();
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &ref)
-{
-	*this = ref;
-}
+Bureaucrat::Bureaucrat(const Bureaucrat &ref) : _name(ref._name), _grade(ref._grade)
+{}
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &ref)
 {

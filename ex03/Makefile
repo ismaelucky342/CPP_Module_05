@@ -1,51 +1,33 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/23 04:06:52 by ismherna          #+#    #+#              #
-#    Updated: 2025/12/07 12:58:09 by ismherna         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME		= ex03
+CXX			= c++
+CXXFLAGS	= -std=c++98 -Wall -Wextra -Werror
 
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98
-TARGET = ex03
-SRCS =	main.cpp \
-		src/Bureaucrat.cpp \
-		src/Form.cpp \
-		src/PresidentialPardonForm.cpp \
-		src/RobotomyRequestForm.cpp \
-		src/ShrubberyCreationForm.cpp \
-		src/StrToLower.cpp \
-		src/IntToStr.cpp \
-		src/Intern.cpp
+SRCS		= main.cpp \
+			  Bureaucrat.cpp \
+			  Form.cpp \
+			  PresidentialPardonForm.cpp \
+			  RobotomyRequestForm.cpp \
+			  ShrubberyCreationForm.cpp \
+			  StrToLower.cpp \
+			  IntToStr.cpp \
+			  Intern.cpp
 
-OBJS = $(SRCS:.cpp=.o)
+OBJS		= $(SRCS:.cpp=.o)
 
-# Regla por defecto
-all: $(TARGET)
+all: $(NAME)
 
-# Compilar el ejecutable
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
-# Regla para compilar los archivos .o
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Limpiar los archivos generados
 clean:
 	rm -f $(OBJS)
 
-# Limpiar todo, incluyendo el ejecutable
 fclean: clean
-	rm -f $(TARGET)
+	rm -f $(NAME)
 
-# Recompilar
 re: fclean all
 
 .PHONY: all clean fclean re
-

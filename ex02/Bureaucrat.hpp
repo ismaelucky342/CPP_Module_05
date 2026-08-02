@@ -16,7 +16,7 @@
 #include <string>
 #include <iomanip>
 #include <iostream>
-#include "A_Form.hpp"
+#include "AForm.hpp"
 
 class AForm;
 class Bureaucrat
@@ -38,7 +38,7 @@ class Bureaucrat
 
 		void		signForm(AForm &form);
 
-		void		executeForm(AForm const & form);
+		void		executeForm(AForm const & form) const;
 
 		class GradeTooHighException : public std::exception
 		{

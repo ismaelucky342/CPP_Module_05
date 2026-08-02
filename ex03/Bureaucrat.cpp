@@ -1,5 +1,5 @@
 
-#include "../includes/Bureaucrat.hpp"
+#include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat(): _name("_bureaucrat_"), _grade(150) {
 	std::cout << "[Build] Bureaucrat with name " << this->_name << " and grade: "<< this->_grade << std::endl;
@@ -11,7 +11,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade): _name(name) {
 	std::cout << "[Build] Bureaucrat with name " << this->_name << " and grade: "<< this->_grade << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &src) : _name(src.getName() + "_copy")
+Bureaucrat::Bureaucrat(const Bureaucrat &src) : _name(src.getName())
 {
 	std::cout << "[Copy Constructor] Bureaucrat called to copy " << src.getName() <<
 	" into " << this->getName() << std::endl;
@@ -42,20 +42,36 @@ void Bureaucrat::setGrade(int grade) {
 
 void Bureaucrat::incrementGrade(void) {
 	std::cout << "Trying to increment grade of " << this->getName() << std::endl;
-	this->setGrade(this->_grade + 1);
-}
-
-void Bureaucrat::decrementGrade(void) {
-	std::cout << "Trying to drecement grade of " << this->getName() << std::endl;
 	this->setGrade(this->_grade - 1);
 }
 
+void Bureaucrat::decrementGrade(void) {
+	std::cout << "Trying to decrement grade of " << this->getName() << std::endl;
+	this->setGrade(this->_grade + 1);
+}
+
 void Bureaucrat::executeForm(const Form &form) const {
-	form.execute(*this);
+	try
+	{
+		form.execute(*this);
+		std::cout << this->_name << " executed " << form.getName() << std::endl;
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << this->_name << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 void Bureaucrat::signForm(Form &form) {
-	form.beSigned(*this);
+	try
+	{
+		form.beSigned(*this);
+		std::cout << this->_name << " signed " << form.getName() << std::endl;
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << this->_name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 

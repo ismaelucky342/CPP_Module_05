@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "A_Form.hpp"
+#include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include <cstdlib>
+#include <ctime>
 
 int	main()
 {

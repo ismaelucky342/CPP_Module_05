@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/StrToLower.hpp"
+#include "StrToLower.hpp"
 
 std::string strToLower(std::string src)
 {
