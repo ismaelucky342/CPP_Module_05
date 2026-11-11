@@ -1,0 +1,20 @@
+# Compiled objects and libraries
+*.o
+*.a
+*.so
+
+# Build executables
+/ex00/Bureaucrat
+/ex01/form
+/ex02/bureaucrat
+/ex03/ex03
+*.out
+a.out
+
+# Local and crash-generated files
+.DS_Store
+*.swp
+*~
+core
+core.*
+vgcore.*

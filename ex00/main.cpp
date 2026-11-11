@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismherna <ismherna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismherna <ismherna@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:29:50 by ismherna          #+#    #+#             */
-/*   Updated: 2025/09/22 22:30:44 by ismherna         ###   ########.fr       */
+/*   Updated: 2026/09/29 18:22:20 by ismherna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main()
 {
 	try
 	{
-		Bureaucrat b("Paco", 1);
+		Bureaucrat b("Paco", 0);
 		b.decrementGrade();
 		std::cout << b << std::endl;
 	}
